@@ -26,12 +26,11 @@ REPOSITORY_URL = "https://github.com/martygrant/mungo"
 VERSION_NUMBER = os.getenv('version')
 BOT_TOKEN = os.getenv('token')
 
-
 ##### [ BOT INSTANTIATION ] #####
 
 BOT = commands.Bot(description="Below is a listing for Mungo's commands. Use '!' infront of any of them to execute a command, like '!help'", command_prefix="!")
 BOT.load_extension('modules.roles')
-BOT.load_extension('modules.weather')
+#BOT.load_extension('modules.weather')
 
 ##### [ EVENT LISTENERS ] #####
 
@@ -86,7 +85,7 @@ async def say(*something):
 async def about():
 	"""Information about the Mungo bot."""
 
-	info = "I'm Mungo, the bot for the Glasgow Developers discord server.\nNamed after St. Mungo, the founder and patron saint of Glasgow.\n"
+	info = "I'm Mungo, the bot for the Glasgow Developers discord server.\nNamed after St. Mungo, the founder and patron saint of Glasgow.\nMy avatar is a street art mural by Smug on High Street.\n"
 	info += "This is v"
 	info += VERSION_NUMBER
 	info += ". You can view and contribute to the bot, check out: "
