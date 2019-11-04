@@ -26,12 +26,11 @@ REPOSITORY_URL = "https://github.com/martygrant/mungo"
 VERSION_NUMBER = os.getenv('version')
 BOT_TOKEN = os.getenv('token')
 
-
 ##### [ BOT INSTANTIATION ] #####
 
 BOT = commands.Bot(description="Below is a listing for Mungo's commands. Use '!' infront of any of them to execute a command, like '!help'", command_prefix="!")
 BOT.load_extension('modules.roles')
-BOT.load_extension('modules.weather')
+#BOT.load_extension('modules.weather')
 
 ##### [ EVENT LISTENERS ] #####
 
