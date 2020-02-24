@@ -43,6 +43,7 @@ async def on_ready():
 async def on_member_join(member):
 	"""The 'on_member_join' event"""
 	
+	generalChannel = BOT.get_channel('497797810834636808')
 	introductionsChannel = BOT.get_channel('498797757620813834')
 	welcomeRulesChannel = BOT.get_channel('498797001043869697')
 	eventsChannel = BOT.get_channel('498796966365495298')
@@ -60,8 +61,8 @@ Use `!role <role name>` to add a role to your account. Use `!roles` to see what 
 
 	# Send the welcome message to the user individually
 	await BOT.send_message(member, welcome_message)
-	# Announce a new member joining in the introductions channel
-	await BOT.send_message(introductionsChannel, "Welcome {} to the Glasgow Game Developers server!".format(member.mention))
+	# Announce a new member joining in the general channel
+	await BOT.send_message(generalChannel, "Welcome {} to the Glasgow Game Developers server!".format(member.mention))
 
 @BOT.event
 async def on_member_remove(member):
