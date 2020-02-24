@@ -6,7 +6,7 @@ import utilities as utils
 class Roles:
 	def __init__(self, bot):
 		self.bot = bot
-		self.restrictedRoles = ['Bot', 'Moderators', '@everyone']
+		self.restrictedRoles = ['Bot', 'Moderator', '@everyone']
 
 	@commands.command(pass_context=True)
 	async def roles(self, ctx):
@@ -40,7 +40,7 @@ class Roles:
 
 		rolesList = sorted(rolesList)
 
-		# Covnert list to string so we can display using line terminator \n
+		# Convert list to string so we can display using line terminator \n
 		rolesString = ""
 		for x in rolesList:
 			rolesString += x

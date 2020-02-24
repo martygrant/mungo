@@ -48,7 +48,7 @@ async def on_member_join(member):
 	eventsChannel = BOT.get_channel('498796966365495298')
 	junkChannel = BOT.get_channel('498856942060699669')
 
-	welcome_message = """Welcome to the **Glasgow Developers** server!
+	welcome_message = """Welcome to the **Glasgow Game Developers** server!
 
 Please check out {}. Visit {} to see what events are coming up! Why not introduce yourself in {}?
 
@@ -61,7 +61,7 @@ Use `!role <role name>` to add a role to your account. Use `!roles` to see what 
 	# Send the welcome message to the user individually
 	await BOT.send_message(member, welcome_message)
 	# Announce a new member joining in the introductions channel
-	await BOT.send_message(introductionsChannel, "Welcome {} to the Glasgow Developers server!".format(member.mention))
+	await BOT.send_message(introductionsChannel, "Welcome {} to the Glasgow Game Developers server!".format(member.mention))
 
 @BOT.event
 async def on_member_remove(member):
@@ -70,7 +70,6 @@ async def on_member_remove(member):
 	junkChannel = BOT.get_channel('498856942060699669')
 
 	await BOT.send_message(junkChannel, "User **{}** has left the server. Goodbye!".format(str(member)))
-
 
 
 ##### [ BOT COMMANDS ] #####
@@ -85,7 +84,7 @@ async def say(*something):
 async def about():
 	"""Information about the Mungo bot."""
 
-	info = "I'm Mungo, the bot for the Glasgow Developers discord server.\nNamed after St. Mungo, the founder and patron saint of Glasgow.\nMy avatar is a street art mural by Smug on High Street.\n"
+	info = "I'm Mungo, the bot for the Glasgow Game Developers discord server.\nNamed after St. Mungo, the founder and patron saint of Glasgow.\nMy avatar is a street art mural by Smug on High Street.\n"
 	info += "This is v"
 	info += VERSION_NUMBER
 	info += ". You can view and contribute to the bot, check out: "
