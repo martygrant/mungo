@@ -116,7 +116,7 @@ def getNewestMember(users):
 @BOT.command(pass_context=True)
 async def stats(ctx):
 	"""Get server statistics."""
-	server = ctx.message.guild
+	server = ctx.message.author.guild
 	serverName = server.name
 	numberOfUsers = server.member_count
 	members = server.members
