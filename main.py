@@ -113,8 +113,8 @@ def getNewestMember(users):
 	return newest
 
 
-@BOT.command()
-async def stats(ctx, *p):
+@BOT.command(pass_context=True)
+async def stats(ctx):
 	"""Get server statistics."""
 	server = ctx.message.guild
 	serverName = server.name
