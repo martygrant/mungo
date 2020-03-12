@@ -92,6 +92,47 @@ async def about():
 	info += REPOSITORY_URL
 
 	await BOT.say(info)
+	
+	
+def getOnlineUserCount(users):
+	count = 0
+	for user in users:
+		if str(user.status) == "online" or str(user.status) == "idle" or str(user.status) == "dnd":
+			count += 1
+	return count
+
+
+def getNewestMember(users):
+	userList = list(users)
+
+	newest = userList[0]
+	for x in userList[2:]:
+		if x.joined_at > newest.joined_at:
+			newest = x
+
+	return newest
+
+
+@BOT.command()
+async def stats(ctx):
+	"""Get server statistics."""
+	server = ctx.message.author.guild
+	serverName = server.name
+	numberOfUsers = server.member_count
+	members = server.members
+	numberOfOnlineUsers = getOnlineUserCount(members)
+	createdDate = server.created_at.strftime('%Y-%m-%d')
+	newestMember = getNewestMember(members)
+
+	embed = discord.Embed(type="rich", colour=utils.generate_random_colour(), timestamp=datetime.now())
+	embed.set_thumbnail(url=server.icon_url)
+	embed.set_author(name=serverName)
+	embed.add_field(name="Created", value=createdDate)
+	embed.add_field(name="Users Online", value=numberOfOnlineUsers)
+	embed.add_field(name="Users Total", value=numberOfUsers)
+	embed.add_field(name="Newest Member", value=newestMember)
+
+	await ctx.message.channel.send(embed=embed)
 
 ##### [ BOT LOGIN ] #####
 
