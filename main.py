@@ -18,9 +18,10 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import requests
+import utilities as utils
 
 import modules.roles
-import modules.weather
+#import modules.weather
 
 REPOSITORY_URL = "https://github.com/martygrant/mungo"
 VERSION_NUMBER = os.getenv('version')
@@ -76,13 +77,13 @@ async def on_member_remove(member):
 ##### [ BOT COMMANDS ] #####
 
 @BOT.command()
-async def say(*something):
+async def say(ctx, *something):
 	"""Make Mungo say something."""
 	if something:
-		await BOT.say(" ".join(something))
+		await ctx.send(" ".join(something))
 
 @BOT.command()
-async def about():
+async def about(ctx):
 	"""Information about the Mungo bot."""
 
 	info = "I'm Mungo, the bot for the Glasgow Game Developers discord server.\nNamed after St. Mungo, the founder and patron saint of Glasgow.\nMy avatar is a street art mural by Smug on High Street.\n"
@@ -91,7 +92,7 @@ async def about():
 	info += ". You can view and contribute to the bot, check out: "
 	info += REPOSITORY_URL
 
-	await BOT.say(info)
+	await ctx.send(info)
 	
 	
 def getOnlineUserCount(users):

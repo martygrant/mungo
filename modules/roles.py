@@ -3,7 +3,7 @@ from discord.ext import commands
 import utilities as utils
 
 
-class Roles:
+class Roles(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 		self.restrictedRoles = ['Bot', 'Moderator', '@everyone']
@@ -16,14 +16,14 @@ class Roles:
 
 		rolesDict = {}
 
-		for role in ctx.message.author.server.roles:
+		for role in ctx.message.author.guild.roles:
 			if role.name not in self.restrictedRoles:
 				rolesDict[role.name] = 0
 		
 		# For each server role, for each user's list of roles, add to a count if there is a user with that role
-		for role in ctx.message.author.server.roles:
+		for role in ctx.message.author.guild.roles:
 			if role.name not in self.restrictedRoles:
-				for user in ctx.message.author.server.members:
+				for user in ctx.message.author.guild.members:
 					for userRole in user.roles:
 						if role == userRole:
 							rolesDict[role.name] += 1
@@ -49,7 +49,7 @@ class Roles:
 		embed.set_author(name="Use '!role Role Name' to add a role to your profile.")
 		embed.add_field(name="Roles", value=rolesString)
 
-		await self.bot.say(embed=embed)
+		await ctx.send(embed=embed)
 
 
 	@commands.command(pass_context=True)
@@ -66,29 +66,29 @@ class Roles:
 			role = None
 
 			# compare role argument with server roles by checking their lower-case representations
-			for tempRole in ctx.message.author.server.roles:
+			for tempRole in ctx.message.author.guild.roles:
 				if tempRole.name.lower() == roleToAdd.lower():
 					print("MATCH! " + tempRole.name + " " + roleToAdd)
 					role = tempRole
 					break
 
 			if role is None:
-				return await self.bot.say("That role doesn't exist.")
+				return await ctx.send("That role doesn't exist.")
 
 			# we want to skip removing the specified role if we are adding one
 			dontRemove = False
 
 			if role not in user.roles:
-				await self.bot.add_roles(user, role)
-				await self.bot.say("{} role has been added to {}.".format(role, user.mention))
+				await user.add_roles(role)
+				await ctx.send("{} role has been added to {}.".format(role, user.mention))
 				dontRemove = True
 
 			if role in user.roles and dontRemove == False:
-				await self.bot.remove_roles(user, role)
-				await self.bot.say("{} role has been removed from {}.".format(role, user.mention))
+				await user.remove_roles(role)
+				await ctx.send("{} role has been removed from {}.".format(role, user.mention))
 
-		else:   
-			await self.bot.say("This role requires manual approval from an admin.")
+		else:
+			await ctx.send("This role requires manual approval from an admin.")
 
 def setup(bot):
 	bot.add_cog(Roles(bot))
